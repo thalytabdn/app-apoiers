@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { styled } from "@mui/system";
 import CharityLogo from "../../assets/charity.svg";
 import PrimaryButton from "../../components/Button/PrimaryButton";
+import { fetchTotalAccess, postAccess } from "../../services/api";
 
 const StyledCharityLogo = styled("img")({
   width: "100%",
@@ -13,6 +14,8 @@ const StyledCharityLogo = styled("img")({
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const [totalAccess, setTotalAccess] = useState();
+  console.log("🚀 ~ Total de acessos:", totalAccess);
 
   const redirectToDonationPointsList = () => {
     navigate("/donationPointsList");
@@ -21,6 +24,16 @@ const Home: React.FC = () => {
   const redirectToDonationPointForm = () => {
     navigate("/createDonationPoint");
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await postAccess();
+      const response = await fetchTotalAccess();
+      setTotalAccess(response.totalAccessCount);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Container

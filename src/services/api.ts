@@ -20,3 +20,13 @@ export const postDonationPoint = async (point: DonationPointRequest) => {
     return error.response;
   }
 };
+
+export const fetchTotalAccess = async () => {
+  const response = await axios.get(`${URL_API}/access/count`);
+  return response.data;
+};
+
+export const postAccess = async () => {
+  const response = await axios.get(`${URL_API}/access`);
+  return response.data;
+};
