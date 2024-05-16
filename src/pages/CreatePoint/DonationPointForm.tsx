@@ -10,9 +10,11 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Alert,
 } from "@mui/material";
 import { Container } from "@mui/system";
 import PrimaryButton from "../../components/Button/PrimaryButton";
+import { Snackbar } from "@mui/material";
 
 const DonationPointForm: React.FC = () => {
   const [selectedState, setSelectedState] = useState("");
@@ -23,6 +25,8 @@ const DonationPointForm: React.FC = () => {
   const [loadingCities, setLoadingCities] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({ telefone: "" });
+  const [openSuccess, setOpenSuccess] = React.useState(false);
+  const [openError, setOpenError] = React.useState(false);
 
   const [form, setForm] = useState({
     nome: "",
@@ -33,6 +37,15 @@ const DonationPointForm: React.FC = () => {
     cidade: "",
     uf: "",
   });
+
+  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSuccess(false);
+    setOpenError(false);
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -102,8 +115,10 @@ const DonationPointForm: React.FC = () => {
     try {
       const response = await postDonationPoint(form);
       console.log(response);
+      setOpenSuccess(true);
     } catch (error) {
       console.error("Failed to post donation point:", error);
+      setOpenError(true);
     } finally {
       setLoading(false);
     }
@@ -246,6 +261,18 @@ const DonationPointForm: React.FC = () => {
             </Grid>
           </Grid>
         </form>
+
+        <Snackbar open={openSuccess} autoHideDuration={3000}>
+          <Alert onClose={handleClose} severity='success'>
+            Ponto de coleta cadastrado com sucesso !
+          </Alert>
+        </Snackbar>
+
+        <Snackbar open={openError} autoHideDuration={3000}>
+          <Alert onClose={handleClose} severity='error'>
+            Erro ao cadastrar ponto de coleta. Tente novamente.
+          </Alert>
+        </Snackbar>
       </Container>
     </div>
   );
