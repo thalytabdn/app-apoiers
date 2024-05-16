@@ -27,6 +27,7 @@ const DonationPointForm: React.FC = () => {
   const [errors, setErrors] = useState({ telefone: "" });
   const [openSuccess, setOpenSuccess] = React.useState(false);
   const [openError, setOpenError] = React.useState(false);
+  const [openAlreadyExist, setOpenAlreadyExist] = React.useState(false);
 
   const [form, setForm] = useState({
     nome: "",
@@ -45,6 +46,7 @@ const DonationPointForm: React.FC = () => {
 
     setOpenSuccess(false);
     setOpenError(false);
+    setOpenAlreadyExist(false);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -114,15 +116,21 @@ const DonationPointForm: React.FC = () => {
 
     try {
       const response = await postDonationPoint(form);
-      console.log(response);
-      setOpenSuccess(true);
+
+      if (response.status === 201) {
+        setOpenSuccess(true);
+      } else {
+        if (response.data.message === "Point already exists") {
+          setOpenAlreadyExist(true);
+        } else {
+          setOpenError(true);
+        }
+      }
     } catch (error) {
-      console.error("Failed to post donation point:", error);
       setOpenError(true);
-    } finally {
-      setLoading(false);
     }
-    console.log(form);
+
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -271,6 +279,12 @@ const DonationPointForm: React.FC = () => {
         <Snackbar open={openError} autoHideDuration={3000}>
           <Alert onClose={handleClose} severity='error'>
             Erro ao cadastrar ponto de coleta. Tente novamente.
+          </Alert>
+        </Snackbar>
+
+        <Snackbar open={openAlreadyExist} autoHideDuration={3000}>
+          <Alert onClose={handleClose} severity='info'>
+            Ponto de coleta já cadastrado.
           </Alert>
         </Snackbar>
       </Container>
