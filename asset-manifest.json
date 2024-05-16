@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.js": "/app-apoiers/static/js/main.a7bd7734.js",
+    "static/media/brasao.svg": "/app-apoiers/static/media/brasao.0eaf74cdc6d0ffc7f7b1eebfc5d09564.svg",
+    "static/media/charity.svg": "/app-apoiers/static/media/charity.2a1d8e9328b668e73ae3156175c0e1ae.svg",
+    "index.html": "/app-apoiers/index.html",
+    "main.a7bd7734.js.map": "/app-apoiers/static/js/main.a7bd7734.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.a7bd7734.js"
+  ]
+}
