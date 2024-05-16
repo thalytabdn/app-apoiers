@@ -1,4 +1,4 @@
-# Projeto de Pontos de Doação
+# APP Apoie RS - Pontos de Doação
 
 Este projeto nasceu da motivação de oferecer apoio às vítimas das enchentes no Rio Grande do Sul. Com o objetivo de unir esforços e espalhar esperança, a plataforma permite que pessoas de todos os estados do Brasil encontrem pontos de coleta para doações em suas cidades ou nas mais próximas. Essa iniciativa visa facilitar o acesso à ajuda e promover a solidariedade em momentos de necessidade.
 
