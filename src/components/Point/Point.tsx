@@ -7,6 +7,8 @@ interface PointProps {
 }
 
 const Point: React.FC<PointProps> = ({ point }) => {
+  const ruaCapitalized = point.rua.charAt(0).toUpperCase() + point.rua.slice(1);
+
   return (
     <Card>
       <CardContent>
@@ -19,7 +21,7 @@ const Point: React.FC<PointProps> = ({ point }) => {
         </Typography>
 
         <Typography variant='body2' color='text.secondary'>
-          Rua: {point.rua}, {point.numero}
+          {ruaCapitalized}, {point.numero}
         </Typography>
 
         <Typography variant='body2' color='text.secondary'>
