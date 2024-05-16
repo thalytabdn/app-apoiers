@@ -48,7 +48,7 @@ ou
 yarn start
 ```
 
-Agora, o projeto deve estar rodando em `http://localhost:3000`.
+Agora, o projeto deve estar rodando em `http://localhost:3333`.
 
 ## Funcionalidades
 
