@@ -14,14 +14,16 @@ const StyledPrimaryButton = styled(Button)({
 
 interface PrimaryButtonProps {
   text: string;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   disabled?: boolean;
+  type?: string;
 }
 
 const PrimaryButton: React.FC<PrimaryButtonProps> = ({
   text,
   onClick,
   disabled,
+  type,
 }) => {
   return (
     <StyledPrimaryButton
@@ -29,6 +31,7 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
       color='primary'
       onClick={onClick}
       disabled={disabled}
+      type={type as "button" | "reset" | "submit" | undefined}
     >
       {text}
     </StyledPrimaryButton>

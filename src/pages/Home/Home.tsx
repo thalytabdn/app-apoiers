@@ -18,6 +18,10 @@ const Home: React.FC = () => {
     navigate("/donationPointsList");
   };
 
+  const redirectToDonationPointForm = () => {
+    navigate("/createDonationPoint");
+  };
+
   return (
     <Container
       sx={{
@@ -75,7 +79,7 @@ const Home: React.FC = () => {
         />
         <PrimaryButton
           text='Cadastrar Local de Coleta'
-          onClick={redirectToDonationPointsList}
+          onClick={redirectToDonationPointForm}
         />
       </Container>
     </Container>
