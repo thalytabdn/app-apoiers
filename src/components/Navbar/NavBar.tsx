@@ -19,7 +19,7 @@ const Navbar: React.FC = () => {
     <StyledAppBar position='static'>
       <Toolbar>
         <Link
-          to='/'
+          to='/app-apoiers'
           style={{
             display: "flex",
             alignItems: "center",
