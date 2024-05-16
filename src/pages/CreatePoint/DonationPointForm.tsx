@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import {
-  Container,
-  Typography,
-  TextField,
-  Grid,
-  Select,
-  InputLabel,
-  MenuItem,
-  FormControl,
-} from "@mui/material";
 import { City, State } from "../../types/ibgeTypes";
 import { fetchCities, fetchStates } from "../../services/ibgeService";
+import { postDonationPoint } from "../../services/api";
+import {
+  Typography,
+  Grid,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
+import { Container } from "@mui/system";
 import PrimaryButton from "../../components/Button/PrimaryButton";
 
 const DonationPointForm: React.FC = () => {
@@ -20,6 +21,8 @@ const DonationPointForm: React.FC = () => {
   const [cities, setCities] = useState<City[]>([]);
   const [loadingStates, setLoadingStates] = useState(false);
   const [loadingCities, setLoadingCities] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({ telefone: "" });
 
   const [form, setForm] = useState({
     nome: "",
@@ -33,6 +36,22 @@ const DonationPointForm: React.FC = () => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+
+    if (name === "telefone") {
+      const phoneRegex = /^[1-9]{2}9?[0-9]{8}$/;
+      if (!phoneRegex.test(value)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          telefone: "Invalid phone number",
+        }));
+      } else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          telefone: "",
+        }));
+      }
+    }
+
     setForm((prevState) => ({
       ...prevState,
       [name]: value,
@@ -48,7 +67,6 @@ const DonationPointForm: React.FC = () => {
       try {
         const citiesData = await fetchCities(state);
         setCities(citiesData);
-        // Atualiza o campo 'uf' no formulário
         setForm((prevState) => ({
           ...prevState,
           uf: state,
@@ -60,7 +78,6 @@ const DonationPointForm: React.FC = () => {
       }
     } else {
       setCities([]);
-      // Limpa o campo 'uf' no formulário se nenhum estado estiver selecionado
       setForm((prevState) => ({
         ...prevState,
         uf: "",
@@ -70,15 +87,26 @@ const DonationPointForm: React.FC = () => {
 
   const handleCityChange = (city: string) => {
     setSelectedCity(city);
-    // Atualiza o campo 'cidade' no formulário
+
     setForm((prevState) => ({
       ...prevState,
       cidade: city,
     }));
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    setLoading(true);
+
+    try {
+      const response = await postDonationPoint(form);
+      console.log(response);
+    } catch (error) {
+      console.error("Failed to post donation point:", error);
+    } finally {
+      setLoading(false);
+    }
     console.log(form);
   };
 
@@ -122,45 +150,18 @@ const DonationPointForm: React.FC = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                type='tel'
                 name='telefone'
                 label='Telefone'
                 variant='outlined'
                 fullWidth
                 required
                 onChange={handleChange}
+                error={!!errors.telefone}
+                helperText={errors.telefone}
                 inputProps={{
                   maxLength: 11,
                 }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                name='rua'
-                label='Rua'
-                variant='outlined'
-                fullWidth
-                required
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                name='numero'
-                label='Número'
-                variant='outlined'
-                fullWidth
-                required
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                name='bairro'
-                label='Bairro'
-                variant='outlined'
-                fullWidth
-                required
-                onChange={handleChange}
               />
             </Grid>
 
@@ -208,6 +209,36 @@ const DonationPointForm: React.FC = () => {
                   )}
                 </Select>
               </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                name='rua'
+                label='Rua'
+                variant='outlined'
+                fullWidth
+                required
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                name='numero'
+                label='Número'
+                variant='outlined'
+                fullWidth
+                required
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                name='bairro'
+                label='Bairro'
+                variant='outlined'
+                fullWidth
+                required
+                onChange={handleChange}
+              />
             </Grid>
 
             <Grid item xs={12}>
