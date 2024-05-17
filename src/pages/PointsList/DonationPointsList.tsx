@@ -167,7 +167,8 @@ const DonationPointsList: React.FC = () => {
           <CircularProgress />
         ) : totalPages === 0 && selectedCity ? (
           <Typography variant='body1' gutterBottom>
-            Que pena, ainda não existem pontos de coleta nessa cidade :(
+            Que pena, ainda não existem pontos de coleta cadastrados para essa
+            cidade :(
           </Typography>
         ) : donationPoints.length > 0 ? (
           <div>
