@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/app-apoiers/static/js/main.0794aa08.js",
+    "main.js": "/app-apoiers/static/js/main.540de635.js",
     "static/media/brasao.svg": "/app-apoiers/static/media/brasao.0eaf74cdc6d0ffc7f7b1eebfc5d09564.svg",
     "static/media/charity.svg": "/app-apoiers/static/media/charity.2a1d8e9328b668e73ae3156175c0e1ae.svg",
     "index.html": "/app-apoiers/index.html",
-    "main.0794aa08.js.map": "/app-apoiers/static/js/main.0794aa08.js.map"
+    "main.540de635.js.map": "/app-apoiers/static/js/main.540de635.js.map"
   },
   "entrypoints": [
-    "static/js/main.0794aa08.js"
+    "static/js/main.540de635.js"
   ]
 }
