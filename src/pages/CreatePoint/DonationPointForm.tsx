@@ -15,6 +15,7 @@ import {
 import { Container } from "@mui/system";
 import PrimaryButton from "../../components/Button/PrimaryButton";
 import { Snackbar } from "@mui/material";
+import { LinearProgress } from "@mui/material";
 
 const DonationPointForm: React.FC = () => {
   const [selectedState, setSelectedState] = useState("");
@@ -266,6 +267,7 @@ const DonationPointForm: React.FC = () => {
 
             <Grid item xs={12}>
               <PrimaryButton type='submit' text='Cadastrar' />
+              {loading && <LinearProgress />}
             </Grid>
           </Grid>
         </form>
