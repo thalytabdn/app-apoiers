@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path='/donationPointsList' element={<DonationPointsList />} />
         <Route path='/createDonationPoint' element={<DonationPointForm />} />
-        <Route path='/app-apoiers' element={<Home />} />
+        <Route path='/' element={<Home />} />
       </Routes>
     </Router>
   );
